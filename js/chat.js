@@ -398,33 +398,18 @@ class ChatBot {
         const messageId = `msg_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
         messageDiv.dataset.messageId = messageId;
         
-        if (role === 'assistant' && useTyping) {
-            // Typing effect for assistant messages
-            this.typeText(textDiv, content, () => {
-                this.renderMarkdown(textDiv, content);
-                this.addSources(contentDiv, sources);
-                this.addFeedback(contentDiv, messageId, content);
-                this.addTimestamp(contentDiv);
-                
-                // Save to session after typing completes
-                if (saveToSession) {
-                    this.saveMessageToSession(role, content, sources);
-                }
-            });
+        // Instant display with proper markdown rendering
+        if (role === 'assistant') {
+            this.renderMarkdown(textDiv, content);
+            this.addFeedback(contentDiv, messageId, content);
         } else {
-            // Instant display
-            if (role === 'assistant') {
-                this.renderMarkdown(textDiv, content);
-                this.addFeedback(contentDiv, messageId, content);
-            } else {
-                textDiv.textContent = content;
-            }
-            this.addSources(contentDiv, sources);
-            this.addTimestamp(contentDiv);
-            
-            if (saveToSession) {
-                this.saveMessageToSession(role, content, sources);
-            }
+            textDiv.textContent = content;
+        }
+        this.addSources(contentDiv, sources);
+        this.addTimestamp(contentDiv);
+        
+        if (saveToSession) {
+            this.saveMessageToSession(role, content, sources);
         }
         
         this.scrollToBottom();
