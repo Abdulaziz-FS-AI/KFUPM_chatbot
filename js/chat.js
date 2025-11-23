@@ -6,12 +6,12 @@
 const API_CONFIG = {
     // For local testing, use: 'http://localhost:5000'
     // For production, use your ngrok/cloudflare URL: 'https://abc123.ngrok.io'
-    baseUrl: window.location.hostname === 'localhost' 
+    baseUrl: window.location.hostname === 'localhost'
         ? 'http://localhost:5000'
-        : 'YOUR_BACKEND_URL_HERE',
+        : 'https://precapitalistic-eldora-uninterpolative.ngrok-free.dev',
     
     // API key for authentication (must match backend)
-    apiKey: 'YOUR_API_KEY_HERE'
+    apiKey: 'kfupm-chatbot-secure-api-key-2024'
 };
 
 console.log('API Configuration:', API_CONFIG.baseUrl);
