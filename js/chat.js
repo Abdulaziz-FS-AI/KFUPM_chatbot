@@ -1,4 +1,24 @@
-// KFUPM Chatbot - Enhanced Frontend with Sessions
+// KFUPM Chatbot - Frontend for Vercel Deployment
+
+// ============================================================================
+// API CONFIGURATION - UPDATE THESE BEFORE DEPLOYING
+// ============================================================================
+const API_CONFIG = {
+    // For local testing, use: 'http://localhost:5000'
+    // For production, use your ngrok/cloudflare URL: 'https://abc123.ngrok.io'
+    baseUrl: window.location.hostname === 'localhost'
+        ? 'http://localhost:5000'
+        : 'https://precapitalistic-eldora-uninterpolative.ngrok-free.dev',
+    
+    // API key for authentication (must match backend)
+    apiKey: 'kfupm-chatbot-secure-api-key-2024'
+};
+
+console.log('API Configuration:', API_CONFIG.baseUrl);
+
+// ============================================================================
+// CHATBOT CLASS
+// ============================================================================
 
 class ChatBot {
     constructor() {
@@ -66,6 +86,12 @@ class ChatBot {
         this.messageInput.focus();
         
         console.log('KFUPM Chatbot initialized with sessions');
+    }
+    
+    toggleSidebar() {
+        if (this.sidebar) {
+            this.sidebar.classList.toggle('hidden');
+        }
     }
     
     // Session Management
@@ -262,11 +288,9 @@ class ChatBot {
         if (this.searchEnabled) {
             this.searchToggle.classList.add('active');
             statusSpan.textContent = 'ON';
-            this.searchToggle.title = "Web search enabled";
         } else {
             this.searchToggle.classList.remove('active');
             statusSpan.textContent = 'OFF';
-            this.searchToggle.title = "Web search disabled";
         }
         
         console.log(`Search ${this.searchEnabled ? 'enabled' : 'disabled'}`);
@@ -304,9 +328,12 @@ class ChatBot {
         this.showStatus('Processing...', '');
         
         try {
-            const response = await fetch('/chat', {
+            const response = await fetch(`${API_CONFIG.baseUrl}/chat`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'X-API-Key': API_CONFIG.apiKey
+                },
                 body: JSON.stringify({
                     message: message,
                     use_search: this.searchEnabled
@@ -340,7 +367,7 @@ class ChatBot {
         } catch (error) {
             console.error('Error:', error);
             loadingMsg.remove();
-            this.addErrorMessage(error.message || 'Failed to get response');
+            this.addErrorMessage(error.message || 'Failed to get response. Make sure the backend server is running.');
             this.showStatus('Error occurred', 'error');
         } finally {
             this.setProcessing(false);
@@ -459,9 +486,12 @@ class ChatBot {
             const messages = this.sessions[this.currentSessionId].messages;
             const lastUserMessage = messages.filter(m => m.role === 'user').pop();
             
-            const response = await fetch('/feedback', {
+            const response = await fetch(`${API_CONFIG.baseUrl}/feedback`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'X-API-Key': API_CONFIG.apiKey
+                },
                 body: JSON.stringify({
                     message_id: messageId,
                     rating: parseInt(rating),
@@ -598,8 +628,8 @@ class ChatBot {
         this.isProcessing = processing;
         this.sendBtn.disabled = processing;
         this.messageInput.disabled = processing;
-        this.searchToggle.disabled = processing;
-        this.clearBtn.disabled = processing;
+        if (this.searchToggle) this.searchToggle.disabled = processing;
+        if (this.clearBtn) this.clearBtn.disabled = processing;
     }
     
     showStatus(message, type = '') {

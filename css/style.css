@@ -10,20 +10,17 @@
     --primary-color: #0d7744;
     --secondary-color: #1a9858;
     --accent-color: #2ecc71;
-    --background: #f8f9fa;
+    --background: #f5f7fa;
     --surface: #ffffff;
     --text-primary: #2c3e50;
-    --text-secondary: #6c757d;
+    --text-secondary: #7f8c8d;
     --user-bg: #0d7744;
-    --assistant-bg: #f1f3f5;
-    --border-color: #e9ecef;
+    --assistant-bg: #ecf0f1;
+    --border-color: #dce1e6;
     --error-color: #e74c3c;
-    --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.1);
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.15);
     --sidebar-width: 280px;
-    --radius-sm: 12px;
-    --radius-md: 16px;
-    --radius-lg: 24px;
 }
 
 body {
@@ -41,7 +38,7 @@ body {
     max-width: 1400px;
     height: 90vh;
     background: var(--surface);
-    border-radius: var(--radius-lg);
+    border-radius: 16px;
     box-shadow: var(--shadow-lg);
     display: flex;
     overflow: hidden;
@@ -228,43 +225,33 @@ body {
     align-items: center;
 }
 
-.search-toggle-btn {
-    background: var(--background);
-    border: 1px solid var(--border-color);
-    color: var(--text-secondary);
-    padding: 0 16px;
-    height: 50px;
-    border-radius: var(--radius-md);
+.toggle-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
     cursor: pointer;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 600;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
     display: flex;
     align-items: center;
     gap: 8px;
-    flex-shrink: 0;
 }
 
-.search-toggle-btn:hover {
-    background: #e9ecef;
-    color: var(--text-primary);
+.toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
 }
 
-.search-toggle-btn.active {
-    background: #e6f4ea;
-    border-color: var(--primary-color);
-    color: var(--primary-color);
+.toggle-btn.active {
+    background: var(--accent-color);
+    border-color: var(--accent-color);
 }
 
-.search-toggle-btn .toggle-status {
-    font-size: 11px;
-    background: rgba(0,0,0,0.1);
-    padding: 2px 6px;
-    border-radius: 4px;
-}
-
-.search-toggle-btn.active .toggle-status {
-    background: rgba(13, 119, 68, 0.1);
+.toggle-status {
+    font-weight: 700;
 }
 
 .admin-link {
@@ -349,7 +336,7 @@ body {
 /* Welcome Message */
 .welcome-message {
     background: white;
-    border-radius: var(--radius-md);
+    border-radius: 12px;
     padding: 32px;
     box-shadow: var(--shadow);
     max-width: 600px;
@@ -431,8 +418,8 @@ body {
 
 .message-content {
     max-width: 70%;
-    padding: 14px 18px;
-    border-radius: var(--radius-md);
+    padding: 12px 16px;
+    border-radius: 12px;
     line-height: 1.6;
     word-wrap: break-word;
 }
@@ -601,11 +588,10 @@ body {
 }
 
 .assistant-message .message-content {
-    background: var(--assistant-bg);
+    background: white;
     color: var(--text-primary);
     border-bottom-left-radius: 4px;
-    box-shadow: none;
-    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow);
 }
 
 /* Message Timestamp */
@@ -711,22 +697,19 @@ body {
 #messageInput {
     flex: 1;
     resize: none;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
-    padding: 14px 18px;
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    padding: 12px 16px;
     font-size: 15px;
     font-family: inherit;
     line-height: 1.5;
     max-height: 120px;
-    transition: all 0.2s ease;
-    background: var(--background);
+    transition: border-color 0.3s ease;
 }
 
 #messageInput:focus {
     outline: none;
     border-color: var(--primary-color);
-    background: white;
-    box-shadow: 0 0 0 3px rgba(13, 119, 68, 0.1);
 }
 
 #messageInput:disabled {
@@ -740,18 +723,18 @@ body {
     border: none;
     width: 48px;
     height: 48px;
-    border-radius: var(--radius-md);
+    border-radius: 50%;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
     flex-shrink: 0;
 }
 
 .send-btn:hover:not(:disabled) {
     background: var(--secondary-color);
-    transform: translateY(-1px);
+    transform: scale(1.05);
 }
 
 .send-btn:disabled {

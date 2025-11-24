@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KFUPM AI Assistant</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <div class="app-container">
@@ -43,7 +43,11 @@
                         </div>
                     </div>
                     <div class="controls">
-                        <a href="/admin" class="admin-link" title="Admin Dashboard">
+                        <button id="searchToggle" class="toggle-btn" title="Toggle web search">
+                            <span class="toggle-label">Web Search:</span>
+                            <span class="toggle-status">OFF</span>
+                        </button>
+                        <a href="admin.html" class="admin-link" title="Admin Dashboard">
                             <span>📊</span>
                         </a>
                         <button id="clearBtn" class="clear-btn" title="Clear conversation">
@@ -72,13 +76,8 @@
                 <!-- Input Area -->
                 <div class="input-area">
                     <div class="input-wrapper">
-                        <button id="searchToggle" class="search-toggle-btn" title="Toggle web search">
-                            <span class="search-icon">🌐</span>
-                            <span class="search-text">Web Search</span>
-                            <span class="toggle-status">OFF</span>
-                        </button>
-                        <textarea
-                            id="messageInput"
+                        <textarea 
+                            id="messageInput" 
                             placeholder="Ask me anything about KFUPM..." 
                             rows="1"
                             maxlength="2000"
@@ -112,6 +111,6 @@
         </div>
     </template>
 
-    <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+    <script src="js/chat.js"></script>
 </body>
 </html>
